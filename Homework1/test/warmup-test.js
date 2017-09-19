@@ -20,7 +20,7 @@ function generatorToArray(generator, ...args) {
 
 describe('change', () => {
   it('handles zero', () => {
-    change(0).should.eql([0, 0, 0, 0]);
+    change(0).should.eql([ 0, 0, 0, 0 ]);
   });
 
   it('computes answers for small integer values fine', () => {
