@@ -122,6 +122,9 @@ function interleave(...args) {
   return [...output, ...restArgs];
 }
 
+/* function cylinder create a cylinder object using the Crockford
+classless style with radius and height defaulting to 1 with methods
+to perform certain operations */
 function cylinder({ radius = 1, height = 1 }) {
   const surfaceArea = () => 2 * Math.PI * radius * height
     + 2 * Math.PI * radius * radius;
