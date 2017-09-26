@@ -122,6 +122,9 @@ function interleave(...args) {
   return [...output, ...restArgs];
 }
 
+/* function cylinder create a cylinder object using the Crockford
+classless style with radius and height defaulting to 1 with methods
+to perform certain operations */
 function cylinder({ radius = 1, height = 1 }) {
   const surfaceArea = () => 2 * Math.PI * radius * height
     + 2 * Math.PI * radius * radius;
@@ -139,6 +142,31 @@ function cylinder({ radius = 1, height = 1 }) {
     get height() { return height; },
   });
 }
+
+/*function crypto accepts two argument, a crypto key and algorithm which returns
+an array of two functions encrypt() to encrypt messages into hex strings
+and decrypt() hex strings message back to original message */
+function [encrypt, decrypt] = makeCryptoFunctions(key, algorithm) {
+  const crypto = require('crypto');
+
+  function encrypt(message){
+    const iv = new Buffer(crypto.randomBytes(16));
+    const cipher = crypto.createCipher(algorithm, key);
+    let encryptedText;
+    cipher.setEncoding('hex');
+    cipher.write(message);
+    cipher.end();
+    encryptedText = cipher.read();
+    return encryptedText;
+  }
+
+  function decrypt(encryptedText){
+    const iv = new Buffer(encryptedText, 'hex');
+
+  }
+
+}
+
 
 
 module.exports = {
