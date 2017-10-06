@@ -1,4 +1,8 @@
 import math
+import re
+from random import shuffle
+from Crypto.Cipher import AES
+import requests
 
 '''change returns a tuple of minimum U.S. quarters, dimes, nickels
 and pennies for the given cents input'''
@@ -14,23 +18,22 @@ def change(amount):
 
 '''strip_quotes takes in a string and returns a string with all apostrophes and
 double quotes removed'''
-import re
+
 def strip_quotes(original):
     return re.sub(r'[\"\']', '', original)
 
 '''scramble takes in a string returns the string scrambled
 with each possibility having an equal chance of occuring'''
-from random import shuffle
 def scramble(word):
     word_list = list(word)
     shuffle(word_list)
-    return (''.join(word_list))
+    return ''.join(word_list)
 
 ''' say is a chainable function that returns concatenated string
 from previous arguments when a None argument is received'''
-def say(first_word = None):
+def say(first_word=None):
     words = []
-    def say_more(word = None):
+    def say_more(word=None):
         if word is None:
             return ' '.join(words)
         words.append(word)
@@ -55,7 +58,7 @@ def triples(hypotenuse_lim):
         for b in range(a, hypotenuse_lim):
             for c in range(1, hypotenuse_lim +1):
                 if a**2 + b** 2 == c**2:
-                    triple = (a,b,c)
+                    triple = (a, b, c)
                     pytriples.append(triple)
     return pytriples
 
@@ -74,19 +77,19 @@ def interleave(a, *b):
 class Cylinder:
     "A cylinder with a height and a radius"
 
-    def __init__(self, radius = 1 , height = 1):
+    def __init__(self, radius=1, height=1):
         self.radius = radius
         self.height = height
 
     @property
     def surface_area(self):
         "Returns the cylinder's surface area"
-        return (2 * math.pi * (self.radius ** 2) + 2 * math.pi * self.radius * self.height)
+        return 2 * math.pi * (self.radius ** 2) + 2 * math.pi * self.radius * self.height
 
     @property
     def volume(self):
         "Returns the cylinder's volume"
-        return (math.pi * (self.radius ** 2) * self.height)
+        return math.pi * (self.radius ** 2) * self.height
 
     def widen(self, factor):
         "Increases the cylinder's radius by a factor"
@@ -98,7 +101,9 @@ class Cylinder:
         self.height *= factor
         return self
 
-from Crypto.Cipher import AES
+'''returns a tuple of two functions, an encrypting and decrypting function,
+both uses the input key and initialization vector to perform their
+respective operations via the Advanced Encryption Standard'''
 def make_crypto_functions(key, iv):
     def encrypt(msg):
         cipher = AES.new(key, AES.MODE_CBC, iv)
@@ -110,13 +115,11 @@ def make_crypto_functions(key, iv):
 
 '''random_name takes a region and gender and return a randomized name
 from the uinames API based on the input parameter values'''
-import requests
 def random_name(region, gender):
     p = {'params':{'region': region, 'gender': gender, 'amount': 1}}
     r = requests.get('https://uinames.com/api', **p)
     if r.status_code is not 200:
         raise ValueError(r.text)
-        return
     else:
         rjson = r.json()
         return rjson['surname'] + ', ' + rjson['name']
