@@ -40,7 +40,7 @@
 template <typename T>
 
 Raw Array:
-T* shuffle(T* inputArray){};
+void shuffle(T* inputArray){};
 
 Standard Library Array:
-std::array<T, inputArray.size()> shuffle(std::array<T,inputArray.size()>){};   
+void shuffle(std::array<T,inputArray.size()>){};   
